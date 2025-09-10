@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 проектов на Python - Kaizen подход</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --dark: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .progress-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+        }
+        
+        .module-header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .module-header h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-progress {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .module-content {
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .project-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+        }
+        
+        .project-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .project-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+        
+        .project-item.completed label {
+            text-decoration: line-through;
+            color: #888;
+        }
+        
+        .motivation {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .motivation h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .modules-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>100 проектов на Python</h1>
+            <p>Пошаговый план развития программиста через практику. Kaizen подход: маленькие, но регулярные улучшения.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Ваш путь от новичка к уверенному Python-разработчику</h2>
+            <p>Этот план разделен на 8 модулей, каждый из которых содержит проекты, постепенно увеличивающиеся по сложности. Отмечайте выполненные проекты, чтобы отслеживать свой прогресс.</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <h3>Общий прогресс</h3>
+                <span id="overall-progress">0/100 выполнено</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress-bar" style="width: 0%"></div>
+            </div>
+            <p>Продолжайте в том же духе! Каждый проект приближает вас к цели.</p>
+        </div>
+
+        <div class="motivation">
+            <h2>Принцип Kaizen</h2>
+            <p>Небольшие, но регулярные улучшения ведут к значительным результатам. Выполняйте по одному проекту в день, и через 3 месяца выCompleted 100 проектов!</p>
+        </div>
+
+        <div class="modules-container" id="modules-container">
+            <!-- Модули будут добавлены через JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 100 проектов на Python | Kaizen подход к обучению</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Данные о проектах
+            const modules = [
+                {
+                    title: "Группа A. Консольные утилиты и простые игры",
+                    description: "Начальный уровень: основы Python и простые приложения",
+                    projects: [
+                        "Калькулятор в консоли — базовые операции (+, -, *, /, возведение в степень)",
+                        "Калькулятор с историей операций — хранение последних вычислений",
+                        "Конвертер единиц — длина, масса, температура",
+                        "Генератор случайных паролей — настройка длины и наборов символов",
+                        "Угадай число — компьютер загадывает число, вы угадываете",
+                        "Крестики-нолики против компьютера — базовая логика игры",
+                        "Таймер/будильник в консоли — отсчёт времени и уведомление",
+                        "To-Do список в консоли — добавление/удаление/отметка задач",
+                        "Нотатник в текстовом файле — запись и чтение заметок",
+                        "Простой генератор отчётов в TXT — агрегация данных в текстовый отчёт",
+                        "Шифр Цезаря — кодер/декодер",
+                        "Статистика текста — счёт слов/токенов",
+                        "Сохранение и загрузка настроек через файл",
+                        "Менеджер закладок в текстовом виде (CSV/JSON-совместимый)",
+                        "Простой симулятор очереди (FIFO) в консоли"
+                    ]
+                },
+                {
+                    title: "Группа B. Работа с файлами и данными",
+                    description: "Обработка данных, работа с файлами различных форматов",
+                    projects: [
+                        "Чтение и запись текстового файла",
+                        "Подсчёт частоты слов в тексте",
+                        "Нормализация текста: приведение к нижнему регистру, удаление пунктуации",
+                        "Чтение и запись CSV с помощью модуля csv",
+                        "Чтение и запись JSON",
+                        "Поиск дубликатов файлов в директории по хешу",
+                        "Объединение нескольких CSV-файлов в один",
+                        "Преобразование CSV в JSON",
+                        "Сортировка списка словарей по заданному ключу",
+                        "Извлечение ключевых слов и создание краткого резюме текста",
+                        "Простейший парсер локального XML через ElementTree",
+                        "Анализ логов сервера: подсчёт запросов по статусу",
+                        "Поиск валидных URL в большом текстовом файле",
+                        "Форматирование текста в аккуратный отчёт (Markdown/HTML без фреймворков)",
+                        "Быстрый поиск по словарю: словоформы в списке"
+                    ]
+                },
+                {
+                    title: "Группа C. Алгоритмы и структуры данных",
+                    description: "Основные алгоритмы и структуры данных на Python",
+                    projects: [
+                        "Реализация стека и очереди на основе списков",
+                        "Бинарный поиск в отсортированном списке",
+                        "Сортировки: пузырьковая, вставками, выборочная",
+                        "Быстрая сортировка (quicksort)",
+                        "Поиск кратчайшего пути на графе (BFS)",
+                        "Обход графа: DFS",
+                        "Реализация простейшей хеш-таблицы",
+                        "Простая LRU-кеш-страницы",
+                        "Декоратор для кэширования результатов функций",
+                        "Динамическое программирование: задача «сколько шагов до цели» (лестница)"
+                    ]
+                },
+                {
+                    title: "Группа D. Веб-скрапинг и сети",
+                    description: "Работа с веб-данными, парсинг и HTTP-запросы",
+                    projects: [
+                        "Простая загрузка страницы через urllib (GET)",
+                        "Скраппинг через BeautifulSoup — извлечение данных со страницы и сохранение в CSV",
+                        "Скраппинг ссылок со страницы (регулярки/самостоятельный парсер)",
+                        "Сохранение результатов скрапинга в CSV",
+                        "Парсинг RSS/Atom-лент и сохранение заголовков",
+                        "Простой локальный HTTP-сервер для тестирования скрапинга",
+                        "Извлечение текста из HTML без тяжёлых парсеров",
+                        "Построение простой sitemap-генерации по локальным HTML-файлам",
+                        "Вежливый веб-скрапинг: задержки между запросами",
+                        "Скраппинг по нескольким страницам и агрегация результатов в JSON (и сохранение в SQLite)"
+                    ]
+                },
+                {
+                    title: "Группа E. Графика, визуализация и базовая графика в консоли",
+                    description: "Визуализация данных и создание графики",
+                    projects: [
+                        "ASCII-графики: линейный график по данным",
+                        "Гистограмма частотности слов в консоли (ASCII-бар-чарт)",
+                        "Простой ASCII-рисунок по набору точек",
+                        "Генератор SVG-графика данных без внешних библиотек",
+                        "Визуализация дерева поиска в консоли",
+                        "Простой календарь-вывод в консоли",
+                        "Визуализация сетки (консольная игра типа «морской бой»)",
+                        "Генератор случайной карты в стиле ASCII-арта",
+                        "Фракталы в консоли (например, треугольники по символам)",
+                        "Мини-игра-«визуализация»: угадай форму по ASCII-подсказкам"
+                    ]
+                },
+                {
+                    title: "Группа F. Инструменты, утилиты и тестирование",
+                    description: "Создание инструментов и утилит, тестирование кода",
+                    projects: [
+                        "Мини-тест-раннер для функций (с простым отчётом)",
+                        "Генератор моковых данных (случайные пользователи и записи)",
+                        "Мини CLI-фреймворк: обработка аргументов и команд",
+                        "Простая система логирования с уровнями (INFO, WARNING, ERROR)",
+                        "Загрузчик конфигурации: JSON/INI",
+                        "Наблюдатель за файловой системой через периодический опрос",
+                        "Профилировщик времени работы функций",
+                        "Декоратор замера времени выполнения функций",
+                        "Юнит-тесты по набору функций (assert-подход)",
+                        "Утилита для форматирования кода (проверка отступов)"
+                    ]
+                },
+                {
+                    title: "Группа G. Базы данных, хранение данных и простые хранилища",
+                    description: "Работа с данными, базами данных и системами хранения",
+                    projects: [
+                        "Простая база данных на JSON: CRUD-операции",
+                        "Мини-«таблица» на CSV с индексом по ключу",
+                        "Простое KV-хранилище на диске с элементарными транзакциями",
+                        "CSV-«JOIN» двух таблиц в учебном примере",
+                        "Простой поиск по данным в JSON-«базе»",
+                        "CSV-экспорт данных из внутреннего списка словарей",
+                        "Простейшая сериализация объектов в файл и загрузка",
+                        "Индекс по текстовым полям в локальной базе CSV",
+                        "Пример реализации простого SQL-подобного фильтра для локального набора данных",
+                        "Поиск по данным в локальной базе (базовый SQL-подобный синтаксис на уровне учебного примера)"
+                    ]
+                },
+                {
+                    title: "Группа H. Продвинутые и профильные проекты",
+                    description: "Сложные и специализированные проекты для закрепления навыков",
+                    projects: [
+                        "Парсинг локальных лог-файлов и агрегация по дате",
+                        "Поиск повторяющихся фрагментов в большом тексте (паттерны)",
+                        "Мини-редактор конфигураций с подсветкой ошибок (простой синтаксический анализ)",
+                        "Элементарная генерация отчётов по данным (plain-text, с возможной конвертацией в Markdown/HTML)",
+                        "Микро-генератор API-ключей и тестовый эндпойнт на локальной машине (без Django/Flask)",
+                        "Парсер и конвертор документации в формат Markdown или HTML (без фреймворков)",
+                        "Генератор учебных заданий по теме и автоматическая проверка ответов (CLI)",
+                        "Простой графический экран в консоли с управлением через клавиши (без GUI-библиотек)",
+                        "Минимальная система метрик и дашборда в консоли",
+                        "Итоговый мини-проект: эмулятор простой базы данных с таблицами, фильтрами и экспортом результатов",
+                        "Текстовый RPG‑движок: базовый движок для текстовых приключений",
+                        "Sudoku‑решатель: консольный или GUI‑решатель на Tkinter",
+                        "Простой нейронный сеть from scratch: реализация перцептрона/многослойного perceptron",
+                        "Веб-скрапинг-пайплайн для реальных источников (например, сбор цен на товары)",
+                        "Генератор обучающих заданий по теме языка Python (с автопроверкой ответов)",
+                        "Простой чат-бот на основные пользовательские запросы без NLP-библиотек (правило-основа)",
+                        "Утилита для дедупликации файлов по содержимому с безопасной миграцией",
+                        "Менеджер музыкой коллекции: организация файлов по тегам/названиям и базовый поиск",
+                        "Персональный CLI‑планировщик задач с локальным хранилищем данных (SQLite или JSON)",
+                        "Эмулятор простой базы данных (мини‑DB): создание таблиц, вставка записей, базовые фильтры"
+                    ]
+                }
+            ];
+
+            // Загрузка состояния из localStorage
+            let completedProjects = JSON.parse(localStorage.getItem('completedProjects')) || {};
+            
+            // Создание интерфейса
+            const modulesContainer = document.getElementById('modules-container');
+            
+            modules.forEach((module, moduleIndex) => {
+                const moduleElement = document.createElement('div');
+                moduleElement.className = 'module';
+                
+                // Подсчет выполненных проектов в модуле
+                let completedInModule = 0;
+                module.projects.forEach((project, projectIndex) => {
+                    const projectId = `module-${moduleIndex}-project-${projectIndex}`;
+                    if (completedProjects[projectId]) {
+                        completedInModule++;
+                    }
+                });
+                
+                moduleElement.innerHTML = `
+                    <div class="module-header">
+                        <h3>${module.title}</h3>
+                        <p>${module.description}</p>
+                        <div class="module-progress">${completedInModule}/${module.projects.length} выполнено</div>
+                    </div>
+                    <div class="module-content">
+                        ${module.projects.map((project, projectIndex) => {
+                            const projectId = `module-${moduleIndex}-project-${projectIndex}`;
+                            const isCompleted = completedProjects[projectId] || false;
+                            return `
+                                <div class="project-item ${isCompleted ? 'completed' : ''}">
+                                    <input type="checkbox" id="${projectId}" ${isCompleted ? 'checked' : ''}>
+                                    <label for="${projectId}">${projectIndex + 1}. ${project}</label>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                
+                modulesContainer.appendChild(moduleElement);
+            });
+            
+            // Обновление общего прогресса
+            function updateOverallProgress() {
+                const totalProjects = modules.reduce((total, module) => total + module.projects.length, 0);
+                let completedCount = 0;
+                
+                modules.forEach((module, moduleIndex) => {
+                    module.projects.forEach((project, projectIndex) => {
+                        const projectId = `module-${moduleIndex}-project-${projectIndex}`;
+                        if (completedProjects[projectId]) {
+                            completedCount++;
+                        }
+                    });
+                });
+                
+                const progressPercentage = (completedCount / totalProjects) * 100;
+                document.getElementById('overall-progress').textContent = `${completedCount}/${totalProjects} выполнено`;
+                document.getElementById('overall-progress-bar').style.width = `${progressPercentage}%`;
+            }
+            
+            // Обработка изменений состояния чекбоксов
+            document.addEventListener('change', function(e) {
+                if (e.target.type === 'checkbox') {
+                    completedProjects[e.target.id] = e.target.checked;
+                    localStorage.setItem('completedProjects', JSON.stringify(completedProjects));
+                    
+                    // Обновление класса completed
+                    const projectItem = e.target.parentElement;
+                    if (e.target.checked) {
+                        projectItem.classList.add('completed');
+                    } else {
+                        projectItem.classList.remove('completed');
+                    }
+                    
+                    updateOverallProgress();
+                    
+                    // Обновление прогресса по модулям
+                    document.querySelectorAll('.module').forEach((moduleElement, moduleIndex) => {
+                        let completedInModule = 0;
+                        const projectItems = moduleElement.querySelectorAll('.project-item');
+                        
+                        projectItems.forEach((projectItem, projectIndex) => {
+                            const projectId = `module-${moduleIndex}-project-${projectIndex}`;
+                            if (completedProjects[projectId]) {
+                                completedInModule++;
+                            }
+                        });
+                        
+                        const moduleProgressElement = moduleElement.querySelector('.module-progress');
+                        moduleProgressElement.textContent = `${completedInModule}/${projectItems.length} выполнено`;
+                    });
+                }
+            });
+            
+            // Инициализация прогресса
+            updateOverallProgress();
+        });
+    </script>
+</body>
+</html>
