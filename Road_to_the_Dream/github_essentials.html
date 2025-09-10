@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Guide - Изучаем основы</title>
+    <style>
+        :root {
+            --primary: #2ea44f;
+            --secondary: #f6f8fa;
+            --text: #24292e;
+            --border: #e1e4e8;
+            --progress-bg: #e1e4e8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #fff;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .description {
+            color: #586069;
+            font-size: 1.1rem;
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            background-color: var(--progress-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 12px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .checklist {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .step {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+        
+        .step-content {
+            margin-left: 40px;
+        }
+        
+        .command {
+            background-color: #1E1E1E;
+            color: #D4D4D4;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        
+        .explanation {
+            margin: 10px 0;
+            font-size: 0.95rem;
+            color: #586069;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .completed .step-title {
+            text-decoration: line-through;
+            color: #586069;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #586069;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .checklist {
+                padding: 15px;
+            }
+            
+            .step-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GitHub Guide</h1>
+        <p class="description">Пошаговая шпаргалка для новичков по работе с Git и GitHub</p>
+    </header>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <p class="progress-text">Прогресс: <span id="progressText">0%</span></p>
+    
+    <div class="checklist">
+        <div class="step" id="step1">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <label for="step1-checkbox">
+                    <input type="checkbox" id="step1-checkbox">
+                    <span class="step-title">Установка и настройка Git</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Скачайте и установите Git с официального сайта, затем настройте свои данные.
+                </div>
+                <div class="command">git config --global user.name "Ваше Имя"<br>git config --global user.email "ваш@email.com"</div>
+            </div>
+        </div>
+        
+        <div class="step" id="step2">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <label for="step2-checkbox">
+                    <input type="checkbox" id="step2-checkbox">
+                    <span class="step-title">Инициализация репозитория</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Перейдите в папку вашего проекта и инициализируйте Git репозиторий.
+                </div>
+                <div class="command">git init</div>
+            </div>
+        </div>
+        
+        <div class="step" id="step3">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <label for="step3-checkbox">
+                    <input type="checkbox" id="step3-checkbox">
+                    <span class="step-title">Добавление файлов</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Добавьте файлы в staging area (подготовительную зону) для последующего коммита.
+                </div>
+                <div class="command">git add .<br># или для конкретного файла:<br>git add index.html</div>
+            </div>
+        </div>
+        
+        <div class="step" id="step4">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <label for="step4-checkbox">
+                    <input type="checkbox" id="step4-checkbox">
+                    <span class="step-title">Создание коммита</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Создайте коммит с описанием изменений. Коммит - это снимок состояния вашего проекта.
+                </div>
+                <div class="command">git commit -m "Мое первое изменение"</div>
+            </div>
+        </div>
+        
+        <div class="step" id="step5">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <label for="step5-checkbox">
+                    <input type="checkbox" id="step5-checkbox">
+                    <span class="step-title">Создание репозитория на GitHub</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Создайте новый репозиторий на GitHub через веб-интерфейс (без README, .gitignore и лицензии).
+                </div>
+            </div>
+        </div>
+        
+        <div class="step" id="step6">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <label for="step6-checkbox">
+                    <input type="checkbox" id="step6-checkbox">
+                    <span class="step-title">Привязка удаленного репозитория</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Свяжите ваш локальный репозиторий с удаленным репозиторием на GitHub.
+                </div>
+                <div class="command">git remote add origin https://github.com/ваш-логин/ваш-репозиторий.git</div>
+            </div>
+        </div>
+        
+        <div class="step" id="step7">
+            <div class="step-header">
+                <div class="step-number">7</div>
+                <label for="step7-checkbox">
+                    <input type="checkbox" id="step7-checkbox">
+                    <span class="step-title">Отправка изменений на GitHub</span>
+                </label>
+            </div>
+            <div class="step-content">
+                <div class="explanation">
+                    Отправьте ваши локальные коммиты на GitHub. Флаг -u устанавливает отслеживание ветки.
+                </div>
+                <div class="command">git push -u origin main</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Сохраните эту страницу чтобы вернуться к руководству позже</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const totalSteps = checkboxes.length;
+            
+            // Загрузка сохраненного прогресса
+            checkboxes.forEach((checkbox, index) => {
+                const isChecked = localStorage.getItem(`step${index+1}`);
+                if (isChecked === 'true') {
+                    checkbox.checked = true;
+                    checkbox.parentElement.parentElement.parentElement.classList.add('completed');
+                }
+                
+                checkbox.addEventListener('change', function() {
+                    // Сохранение состояния
+                    localStorage.setItem(`step${index+1}`, this.checked);
+                    
+                    // Добавление/удаление класса completed
+                    if (this.checked) {
+                        this.parentElement.parentElement.parentElement.classList.add('completed');
+                    } else {
+                        this.parentElement.parentElement.parentElement.classList.remove('completed');
+                    }
+                    
+                    // Обновление прогресса
+                    updateProgress();
+                });
+            });
+            
+            // Функция обновления прогресса
+            function updateProgress() {
+                const completed = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                const progress = (completed / totalSteps) * 100;
+                
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${Math.round(progress)}%`;
+            }
+            
+            // Инициализация прогресса
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
