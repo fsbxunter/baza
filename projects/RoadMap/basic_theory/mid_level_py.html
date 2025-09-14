@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Middle Python Level</title>
+    <style>
+        :root {
+            --primary: #4e79a7;
+            --secondary: #f28e2c;
+            --dark: #3d5a80;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .progress-container {
+            margin: 25px 0;
+            background: #e9ecef;
+            border-radius: 50px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 50px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .level-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .level {
+            text-align: center;
+            flex: 1;
+            padding: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .level.junior {
+            background-color: rgba(55, 118, 171, 0.1);
+            border-radius: 8px 0 0 8px;
+            border-right: 2px solid var(--primary);
+        }
+
+        .level.middle {
+            background-color: rgba(78, 121, 167, 0.2);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .level-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .module {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+        }
+
+        .module-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .module-content {
+            margin-left: 10px;
+        }
+
+        .topic {
+            margin-bottom: 12px;
+        }
+
+        .topic-title {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .subtopics {
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtopic {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        .advanced {
+            background-color: rgba(242, 142, 44, 0.1);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .advanced .module-title {
+            color: var(--secondary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .level-indicator {
+                flex-direction: column;
+            }
+
+            .level {
+                margin-bottom: 10px;
+                border-radius: 8px !important;
+                border-right: none !important;
+            }
+            
+            .subtopics {
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Python Middle Level</h1>
+            <p class="subtitle">Путь от Junior к Middle Python разработчику</p>
+        </header>
+
+        <div class="level-indicator">
+            <div class="level junior">
+                <div class="level-title">Junior Developer</div>
+                <div>Базовые навыки</div>
+            </div>
+            <div class="level middle">
+                <div class="level-title">Middle Developer</div>
+                <div>Продвинутые навыки</div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% завершено</div>
+
+        <div class="module">
+            <div class="module-title">Углубленный Python</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic1" class="topic-checkbox">
+                        <label for="topic1">Объектно-ориентированное программирование (ООП)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_1" class="subtopic-checkbox">
+                            <label for="subtopic1_1">Классы и объекты: создание, конструктор __init__</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_2" class="subtopic-checkbox">
+                            <label for="subtopic1_2">Наследование и полиморфизм</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_3" class="subtopic-checkbox">
+                            <label for="subtopic1_3">Инкапсуляция: публичные, защищенные и приватные атрибуты</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_4" class="subtopic-checkbox">
+                            <label for="subtopic1_4">Магические методы (__str__, __repr__, __len__ и др.)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_5" class="subtopic-checkbox">
+                            <label for="subtopic1_5">Абстрактные классы и методы</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic2" class="topic-checkbox">
+                        <label for="topic2">Декораторы функций и классов</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_1" class="subtopic-checkbox">
+                            <label for="subtopic2_1">Создание простых декораторов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_2" class="subtopic-checkbox">
+                            <label for="subtopic2_2">Декораторы с параметрами</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_3" class="subtopic-checkbox">
+                            <label for="subtopic2_3">Декораторы классов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_4" class="subtopic-checkbox">
+                            @staticmethod и @classmethod</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_5" class="subtopic-checkbox">
+                            <label for="subtopic2_5">Встроенные декораторы: @property, @dataclass</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic3" class="topic-checkbox">
+                        <label for="topic3">Генераторы и итераторы</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_1" class="subtopic-checkbox">
+                            <label for="subtopic3_1">Создание генераторов с помощью yield</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_2" class="subtopic-checkbox">
+                            <label for="subtopic3_2">Генераторные выражения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_3" class="subtopic-checkbox">
+                            <label for="subtopic3_3">Создание итераторов с помощью __iter__ и __next__</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_4" class="subtopic-checkbox">
+                            <label for="subtopic3_4">Итерация по большим данным с помощью генераторов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic4" class="topic-checkbox">
+                        <label for="topic4">Метаклассы</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_1" class="subtopic-checkbox">
+                            <label for="subtopic4_1">Понимание метаклассов и их применение</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_2" class="subtopic-checkbox">
+                            <label for="subtopic4_2">Создание простых метаклассов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_3" class="subtopic-checkbox">
+                            <label for="subtopic4_3">Использование метаклассов для регистрации классов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic5" class="topic-checkbox">
+                        <label for="topic5">Контекстные менеджеры (создание своих)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_1" class="subtopic-checkbox">
+                            <label for="subtopic5_1">Создание контекстных менеджеров с помощью класса</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_2" class="subtopic-checkbox">
+                            <label for="subtopic5_2">Использование @contextmanager для создания контекстных менеджеров</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_3" class="subtopic-checkbox">
+                            <label for="subtopic5_3">Обработка исключений в контекстных менеджерах</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Сложные структуры данных и алгоритмы</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic6" class="topic-checkbox">
+                        <label for="topic6">Понимание сложности алгоритмов (Big O)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_1" class="subtopic-checkbox">
+                            <label for="subtopic6_1">О-нотация: O(1), O(n), O(log n), O(n²)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_2" class="subtopic-checkbox">
+                            <label for="subtopic6_2">Анализ сложности алгоритмов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_3" class="subtopic-checkbox">
+                            <label for="subtopic6_3">Пространственная сложность алгоритмов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic7" class="topic-checkbox">
+                        <label for="topic7">Продвинутые структуры данных (деревья, графы, хеш-таблицы)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_1" class="subtopic-checkbox">
+                            <label for="subtopic7_1">Бинарные деревья и алгоритмы обхода</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_2" class="subtopic-checkbox">
+                            <label for="subtopic7_2">Хеш-таблицы: принципы работы и реализация</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_3" class="subtopic-checkbox">
+                            <label for="subtopic7_3">Графы: представление и алгоритмы (BFS, DFS)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_4" class="subtopic-checkbox">
+                            <label for="subtopic7_4">Стек, очередь, приоритетная очередь</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic8" class="topic-checkbox">
+                        <label for="topic8">Алгоритмы сортировки и поиска</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_1" class="subtopic-checkbox">
+                            <label for="subtopic8_1">Алгоритмы сортировки: пузырьковая, выбором, вставками</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_2" class="subtopic-checkbox">
+                            <label for="subtopic8_2">Быстрая сортировка и сортировка слиянием</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_3" class="subtopic-checkbox">
+                            <label for="subtopic8_3">Бинарный поиск</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_4" class="subtopic-checkbox">
+                            <label for="subtopic8_4">Поиск в ширину и глубину</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic9" class="topic-checkbox">
+                        <label for="topic9">Модуль collections (namedtuple, defaultdict, Counter)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_1" class="subtopic-checkbox">
+                            <label for="subtopic9_1">Namedtuple: создание именованных кортежей</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_2" class="subtopic-checkbox">
+                            <label for="subtopic9_2">Defaultdict: словарь со значениями по умолчанию</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_3" class="subtopic-checkbox">
+                            <label for="subtopic9_3">Counter: подсчет элементов коллекции</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_4" class="subtopic-checkbox">
+                            <label for="subtopic9_4">Deque: двусторонняя очередь</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Тестирование кода</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic10" class="topic-checkbox">
+                        <label for="topic10">Модульное тестирование (unittest)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_1" class="subtopic-checkbox">
+                            <label for="subtopic10_1">Создание тестовых случаев с unittest.TestCase</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_2" class="subtopic-checkbox">
+                            <label for="subtopic10_2">Методы setUp и tearDown</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_3" class="subtopic-checkbox">
+                            <label for="subtopic10_3">Ассерты и проверка исключений</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_4" class="subtopic-checkbox">
+                            <label for="subtopic10_4">Запуск тестов и интерпретация результатов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic11" class="topic-checkbox">
+                        <label for="topic11">Тестирование с pytest</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_1" class="subtopic-checkbox">
+                            <label for="subtopic11_1">Установка и настройка pytest</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_2" class="subtopic-checkbox">
+                            <label for="subtopic11_2">Написание тестовых функций</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_3" class="subtopic-checkbox">
+                            <label for="subtopic11_3">Фикстуры (fixtures) в pytest</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_4" class="subtopic-checkbox">
+                            <label for="subtopic11_4">Параметризованные тесты</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic12" class="topic-checkbox">
+                        <label for="topic12">Mock-объекты и патчинг</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_1" class="subtopic-checkbox">
+                            <label for="subtopic12_1">Использование unittest.mock</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_2" class="subtopic-checkbox">
+                            <label for="subtopic12_2">Создание mock-объектов и установка возвращаемых значений</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_3" class="subtopic-checkbox">
+                            <label for="subtopic12_3">Патчинг функций и методов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_4" class="subtopic-checkbox">
+                            <label for="subtopic12_4">Проверка вызовов mock-объектов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic13" class="topic-checkbox">
+                        <label for="topic13">Написание тестируемого кода</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_1" class="subtopic-checkbox">
+                            <label for="subtopic13_1">Принципы модульности и слабой связанности</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_2" class="subtopic-checkbox">
+                            <label for="subtopic13_2">Внедрение зависимостей (Dependency Injection)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_3" class="subtopic-checkbox">
+                            <label for="subtopic13_3">Изоляция бизнес-логики от инфраструктурного кода</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic14" class="topic-checkbox">
+                        <label for="topic14">TDD (разработка через тестирование)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_1" class="subtopic-checkbox">
+                            <label for="subtopic14_1">Цикл "красный-зеленый-рефакторинг"</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_2" class="subtopic-checkbox">
+                            <label for="subtopic14_2">Написание тестов перед реализацией функциональности</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_3" class="subtopic-checkbox">
+                            <label for="subtopic14_3">Рефакторинг кода после прохождения тестов</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module advanced">
+            <div class="module-title">Базы данных</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic15" class="topic-checkbox">
+                        <label for="topic15">Основы SQL (SELECT, INSERT, UPDATE, DELETE, JOIN)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_1" class="subtopic-checkbox">
+                            <label for="subtopic15_1">Создание таблиц и основные типы данных</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_2" class="subtopic-checkbox">
+                            <label for="subtopic15_2">Операторы SELECT, WHERE, ORDER BY, LIMIT</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_3" class="subtopic-checkbox">
+                            <label for="subtopic15_3">JOIN: INNER, LEFT, RIGHT, FULL</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_4" class="subtopic-checkbox">
+                            <label for="subtopic15_4">Агрегирующие функции: COUNT, SUM, AVG, MAX, MIN</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_5" class="subtopic-checkbox">
+                            <label for="subtopic15_5">Группировка данных: GROUP BY и HAVING</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic16" class="topic-checkbox">
+                        <label for="topic16">Работа с SQLite из Python</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_1" class="subtopic-checkbox">
+                            <label for="subtopic16_1">Подключение к базе данных SQLite</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_2" class="subtopic-checkbox">
+                            <label for="subtopic16_2">Создание и выполнение запросов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_3" class="subtopic-checkbox">
+                            <label for="subtopic16_3">Использование транзакций</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_4" class="subtopic-checkbox">
+                            <label for="subtopic16_4">Обработка ошибок при работе с БД</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic17" class="topic-checkbox">
+                        <label for="topic17">ORM (SQLAlchemy, Django ORM)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_1" class="subtopic-checkbox">
+                            <label for="subtopic17_1">Основы ORM: объектно-реляционное отображение</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_2" class="subtopic-checkbox">
+                            <label for="subtopic17_2">Определение моделей данных в SQLAlchemy</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_3" class="subtopic-checkbox">
+                            <label for="subtopic17_3">Создание, чтение, обновление и удаление записей (CRUD)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_4" class="subtopic-checkbox">
+                            <label for="subtopic17_4">Выполнение запросов с фильтрацией и сортировкой</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic18" class="topic-checkbox">
+                        <label for="topic18">Оптимизация запросов к базе данных</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_1" class="subtopic-checkbox">
+                            <label for="subtopic18_1">Использование индексов для ускорения запросов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_2" class="subtopic-checkbox">
+                            <label for="subtopic18_2">Анализ выполнения запросов (EXPLAIN)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_3" class="subtopic-checkbox">
+                            <label for="subtopic18_3">Нормализация и денормализация базы данных</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_4" class="subtopic-checkbox">
+                            <label for="subtopic18_4">Кэширование запросов</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module advanced">
+            <div class="module-title">Веб-фреймворки</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic19" class="topic-checkbox">
+                        <label for="topic19">FastAPI или Flask (создание REST API)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_1" class="subtopic-checkbox">
+                            <label for="subtopic19_1">Создание простого веб-приложения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_2" class="subtopic-checkbox">
+                            <label for="subtopic19_2">Определение маршрутов (routes) и обработчиков</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_3" class="subtopic-checkbox">
+                            <label for="subtopic19_3">Обработка HTTP-запросов и ответов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_4" class="subtopic-checkbox">
+                            <label for="subtopic19_4">Валидация данных с помощью Pydantic (FastAPI)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_5" class="subtopic-checkbox">
+                            <label for="subtopic19_5">Документирование API с помощью Swagger/OpenAPI</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic20" class="topic-checkbox">
+                        <label for="topic20">Django (полноценный фреймворк)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_1" class="subtopic-checkbox">
+                            <label for="subtopic20_1">Создание проекта и приложений в Django</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_2" class="subtopic-checkbox">
+                            <label for="subtopic20_2">Модели, представления и шаблоны (MVT)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_3" class="subtopic-checkbox">
+                            <label for="subtopic20_3">Маршрутизация URL и обработка запросов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_4" class="subtopic-checkbox">
+                            <label for="subtopic20_4">Формы и валидация данных</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_5" class="subtopic-checkbox">
+                            <label for="subtopic20_5">Административная панель Django</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic21" class="topic-checkbox">
+                        <label for="topic21">Асинхронное программирование (asyncio)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_1" class="subtopic-checkbox">
+                            <label for="subtopic21_1">Основы asyncio: корутины, event loop</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_2" class="subtopic-checkbox">
+                            <label for="subtopic21_2">Ключевые слова async и await</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_3" class="subtopic-checkbox">
+                            <label for="subtopic21_3">Асинхронные HTTP-запросы с aiohttp</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_4" class="subtopic-checkbox">
+                            <label for="subtopic21_4">Асинхронное взаимодействие с базами данных</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic22" class="topic-checkbox">
+                        <label for="topic22">Аутентификация и авторизация</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_1" class="subtopic-checkbox">
+                            <label for="subtopic22_1">Реализация аутентификации по токенам (JWT)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_2" class="subtopic-checkbox">
+                            <label for="subtopic22_2">OAuth 2.0 и OpenID Connect</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_3" class="subtopic-checkbox">
+                            <label for="subtopic22_3">Ролевая модель доступа (RBAC)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_4" class="subtopic-checkbox">
+                            <label for="subtopic22_4">Защита от распространенных уязвимостей (OWASP)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module advanced">
+            <div class="module-title">Инструменты и DevOps</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic23" class="topic-checkbox">
+                        <label for="topic23">Продвинутое использование Git (ветвление, мерж, rebase)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_1" class="subtopic-checkbox">
+                            <label for="subtopic23_1">Ветвление: создание, переключение, удаление веток</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_2" class="subtopic-checkbox">
+                            <label for="subtopic23_2">Слияние веток: fast-forward и three-way merge</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_3" class="subtopic-checkbox">
+                            <label for="subtopic23_3">Разрешение конфликтов слияния</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_4" class="subtopic-checkbox">
+                            <label for="subtopic23_4">Rebase: изменение истории коммитов</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic24" class="topic-checkbox">
+                        <label for="topic24">Docker (создание контейнеров для приложений)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic24_1" class="subtopic-checkbox">
+                            <label for="subtopic24_1">Основы Docker: образы, контейнеры, Dockerfile</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic24_2" class="subtopic-checkbox">
+                            <label for="subtopic24_2">Создание Dockerfile для Python-приложения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic24_3" class="subtopic-checkbox">
+                            <label for="subtopic24_3">Сборка и запуск контейнеров</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic24_4" class="subtopic-checkbox">
+                            <label for="subtopic24_4">Docker Compose для многоконтейнерных приложений</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic25" class="topic-checkbox">
+                        <label for="topic25">CI/CD (непрерывная интеграция и доставка)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic25_1" class="subtopic-checkbox">
+                            <label for="subtopic25_1">Настройка GitHub Actions для автоматического тестирования</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic25_2" class="subtopic-checkbox">
+                            <label for="subtopic25_2">Автоматическая сборка и деплой приложений</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic25_3" class="subtopic-checkbox">
+                            <label for="subtopic25_3">Интеграция с облачными платформами</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic25_4" class="subtopic-checkbox">
+                            <label for="subtopic25_4">Мониторинг и оповещения о статусе сборок</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic26" class="topic-checkbox">
+                        <label for="topic26">Виртуализация и облачные платформы (AWS, GCP, Azure)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic26_1" class="subtopic-checkbox">
+                            <label for="subtopic26_1">Основы облачных вычислений: IaaS, PaaS, SaaS</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic26_2" class="subtopic-checkbox">
+                            <label for="subtopic26_2">Развертывание приложений на AWS Elastic Beanstalk</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic26_3" class="subtopic-checkbox">
+                            <label for="subtopic26_3">Использование облачных баз данных</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic26_4" class="subtopic-checkbox">
+                            <label for="subtopic26_4">Настройка мониторинга и логирования в облаке</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Архитектура и лучшие практики</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic27" class="topic-checkbox">
+                        <label for="topic27">Принципы SOLID</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic27_1" class="subtopic-checkbox">
+                            <label for="subtopic27_1">Принцип единственной ответственности (SRP)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic27_2" class="subtopic-checkbox">
+                            <label for="subtopic27_2">Принцип открытости/закрытости (OCP)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic27_3" class="subtopic-checkbox">
+                            <label for="subtopic27_3">Принцип подстановки Барбары Лисков (LSP)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic27_4" class="subtopic-checkbox">
+                            <label for="subtopic27_4">Принцип разделения интерфейса (ISP)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic27_5" class="subtopic-checkbox">
+                            <label for="subtopic27_5">Принцип инверсии зависимостей (DIP)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic28" class="topic-checkbox">
+                        <label for="topic28">Шаблоны проектирования (Design Patterns)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic28_1" class="subtopic-checkbox">
+                            <label for="subtopic28_1">Порождающие паттерны: Singleton, Factory, Builder</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic28_2" class="subtopic-checkbox">
+                            <label for="subtopic28_2">Структурные паттерны: Adapter, Decorator, Facade</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic28_3" class="subtopic-checkbox">
+                            <label for="subtopic28_3">Поведенческие паттерны: Observer, Strategy, Command</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic28_4" class="subtopic-checkbox">
+                            <label for="subtopic28_4">Антипаттерны и как их избегать</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic29" class="topic-checkbox">
+                        <label for="topic29">Чистый код (Code Style, PEP8)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic29_1" class="subtopic-checkbox">
+                            <label for="subtopic29_1">Соблюдение PEP8: форматирование кода</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic29_2" class="subtopic-checkbox">
+                            <label for="subtopic29_2">Правила именования переменных, функций, классов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic29_3" class="subtopic-checkbox">
+                            <label for="subtopic29_3">Документирование кода: комментарии и docstrings</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic29_4" class="subtopic-checkbox">
+                            <label for="subtopic29_4">Инструменты проверки качества кода: flake8, pylint, black</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic30" class="topic-checkbox">
+                        <label for="topic30">Архитектурные паттерны (MVC, Микросервисы и т.д.)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic30_1" class="subtopic-checkbox">
+                            <label for="subtopic30_1">Монолитная архитектура vs Микросервисная архитектура</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic30_2" class="subtopic-checkbox">
+                            <label for="subtopic30_2">Шаблон MVC (Model-View-Controller)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic30_3" class="subtopic-checkbox">
+                            <label for="subtopic30_3">Событийно-ориентированная архитектура</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic30_4" class="subtopic-checkbox">
+                            <label for="subtopic30_4">Архитектура на основе очередей сообщений</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Отслеживайте свой прогресс в становлении Middle Python разработчиком</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.topic-checkbox, .subtopic-checkbox');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const totalTopics = checkboxes.length;
+
+            // Загрузка сохраненных состояний из localStorage
+            checkboxes.forEach(checkbox => {
+                const isChecked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.checked = isChecked;
+                if (isChecked) {
+                    checkbox.nextElementSibling.classList.add('completed');
+                }
+
+                checkbox.addEventListener('change', function() {
+                    // Сохранение состояния в localStorage
+                    localStorage.setItem(this.id, this.checked);
+
+                    if (this.checked) {
+                        this.nextElementSibling.classList.add('completed');
+                    } else {
+                        this.nextElementSibling.classList.remove('completed');
+                    }
+
+                    updateProgress();
+                });
+            });
+
+            function updateProgress() {
+                const completed = document.querySelectorAll('.topic-checkbox:checked, .subtopic-checkbox:checked').length;
+                const percentage = (completed / totalTopics) * 100;
+
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = Math.round(percentage) + '% завершено';
+            }
+
+            // Инициализация прогресса
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

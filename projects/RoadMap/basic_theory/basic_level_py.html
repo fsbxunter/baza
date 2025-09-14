@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Python Level</title>
+    <style>
+        :root {
+            --primary: #3776ab;
+            --secondary: #ffd43b;
+            --dark: #306998;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .progress-container {
+            margin: 25px 0;
+            background: #e9ecef;
+            border-radius: 50px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 50px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .module {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+        }
+
+        .module-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .module-content {
+            margin-left: 10px;
+        }
+
+        .topic {
+            margin-bottom: 12px;
+        }
+
+        .topic-title {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .subtopics {
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtopic {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .subtopics {
+                margin-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Python Basic Level</h1>
+            <p class="subtitle">Путь от новичка к Junior Python разработчику</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% завершено</div>
+
+        <div class="module">
+            <div class="module-title">Модуль 1: Синтаксис Python</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic1" class="topic-checkbox">
+                        <label for="topic1">Переменные и типы данных</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_1" class="subtopic-checkbox">
+                            <label for="subtopic1_1">Объявление переменных, правила именования</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_2" class="subtopic-checkbox">
+                            <label for="subtopic1_2">Основные типы данных: int, float, str, bool</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_3" class="subtopic-checkbox">
+                            <label for="subtopic1_3">Динамическая типизация в Python</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic1_4" class="subtopic-checkbox">
+                            <label for="subtopic1_4">Функции преобразования типов: int(), float(), str()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic2" class="topic-checkbox">
+                        <label for="topic2">Операторы (арифметические, сравнения, логические)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_1" class="subtopic-checkbox">
+                            <label for="subtopic2_1">Арифметические операторы: +, -, *, /, //, %, **</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_2" class="subtopic-checkbox">
+                            <label for="subtopic2_2">Операторы сравнения: ==, !=, <, >, <=, >=</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_3" class="subtopic-checkbox">
+                            <label for="subtopic2_3">Логические операторы: and, or, not</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic2_4" class="subtopic-checkbox">
+                            <label for="subtopic2_4">Приоритет операторов</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic3" class="topic-checkbox">
+                        <label for="topic3">Строки и базовые операции с ними</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_1" class="subtopic-checkbox">
+                            <label for="subtopic3_1">Создание строк: одинарные, двойные и тройные кавычки</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_2" class="subtopic-checkbox">
+                            <label for="subtopic3_2">Конкатенация строк, повторение строк</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_3" class="subtopic-checkbox">
+                            <label for="subtopic3_3">Индексация и срезы строк</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_4" class="subtopic-checkbox">
+                            <label for="subtopic3_4">Основные методы строк: lower(), upper(), strip(), split(), join()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic3_5" class="subtopic-checkbox">
+                            <label for="subtopic3_5">Форматирование строк: f-строки, format(), %</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 2: Структуры данных</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic4" class="topic-checkbox">
+                        <label for="topic4">Списки (list) и их методы</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_1" class="subtopic-checkbox">
+                            <label for="subtopic4_1">Создание списков, доступ к элементам</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_2" class="subtopic-checkbox">
+                            <label for="subtopic4_2">Изменение элементов списка, добавление и удаление</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_3" class="subtopic-checkbox">
+                            <label for="subtopic4_3">Методы списков: append(), extend(), insert(), remove(), pop()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_4" class="subtopic-checkbox">
+                            <label for="subtopic4_4">Методы списков: index(), count(), sort(), reverse(), copy()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic4_5" class="subtopic-checkbox">
+                            <label for="subtopic4_5">List comprehensions (генераторы списков)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic5" class="topic-checkbox">
+                        <label for="topic5">Словари (dict) и их методы</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_1" class="subtopic-checkbox">
+                            <label for="subtopic5_1">Создание словарей, доступ к элементам по ключу</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_2" class="subtopic-checkbox">
+                            <label for="subtopic5_2">Добавление, изменение и удаление элементов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_3" class="subtopic-checkbox">
+                            <label for="subtopic5_3">Методы словарей: keys(), values(), items()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_4" class="subtopic-checkbox">
+                            <label for="subtopic5_4">Методы словарей: get(), update(), pop(), popitem()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic5_5" class="subtopic-checkbox">
+                            <label for="subtopic5_5">Dictionary comprehensions</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic6" class="topic-checkbox">
+                        <label for="topic6">Кортежи (tuple) и множества (set)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_1" class="subtopic-checkbox">
+                            <label for="subtopic6_1">Создание кортежей, особенности (неизменяемость)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_2" class="subtopic-checkbox">
+                            <label for="subtopic6_2">Методы кортежей: count(), index()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_3" class="subtopic-checkbox">
+                            <label for="subtopic6_3">Создание множеств, особенности (уникальность элементов)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_4" class="subtopic-checkbox">
+                            <label for="subtopic6_4">Операции с множествами: объединение, пересечение, разность</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic6_5" class="subtopic-checkbox">
+                            <label for="subtopic6_5">Методы множеств: add(), remove(), union(), intersection()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic7" class="topic-checkbox">
+                        <label for="topic7">Индексация и срезы</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_1" class="subtopic-checkbox">
+                            <label for="subtopic7_1">Индексация: положительные и отрицательные индексы</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_2" class="subtopic-checkbox">
+                            <label for="subtopic7_2">Синтаксис срезов: [start:stop:step]</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_3" class="subtopic-checkbox">
+                            <label for="subtopic7_3">Срезы с отрицательными значениями</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic7_4" class="subtopic-checkbox">
+                            <label for="subtopic7_4">Использование срезов для модификации последовательностей</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 3: Управление потоком выполнения</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic8" class="topic-checkbox">
+                        <label for="topic8">Условные операторы (if, elif, else)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_1" class="subtopic-checkbox">
+                            <label for="subtopic8_1">Синтаксис оператора if</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_2" class="subtopic-checkbox">
+                            <label for="subtopic8_2">Использование elif для множественных условий</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_3" class="subtopic-checkbox">
+                            <label for="subtopic8_3">Блок else (что выполняется, если условие ложно)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_4" class="subtopic-checkbox">
+                            <label for="subtopic8_4">Вложенные условные операторы</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic8_5" class="subtopic-checkbox">
+                            <label for="subtopic8_5">Тернарный условный оператор</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic9" class="topic-checkbox">
+                        <label for="topic9">Циклы (for, while)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_1" class="subtopic-checkbox">
+                            <label for="subtopic9_1">Цикл for: итерация по последовательностям</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_2" class="subtopic-checkbox">
+                            <label for="subtopic9_2">Функция range() и ее использование в циклах</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_3" class="subtopic-checkbox">
+                            <label for="subtopic9_3">Цикл while: выполнение пока условие истинно</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_4" class="subtopic-checkbox">
+                            <label for="subtopic9_4">Вложенные циклы</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic9_5" class="subtopic-checkbox">
+                            <label for="subtopic9_5">Итерация по словарям и другим структурам данных</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic10" class="topic-checkbox">
+                        <label for="topic10">Операторы break, continue, pass</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_1" class="subtopic-checkbox">
+                            <label for="subtopic10_1">Оператор break: досрочное завершение цикла</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_2" class="subtopic-checkbox">
+                            <label for="subtopic10_2">Оператор continue: переход к следующей итерации</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_3" class="subtopic-checkbox">
+                            <label for="subtopic10_3">Оператор pass: заглушка для пустых блоков</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic10_4" class="subtopic-checkbox">
+                            <label for="subtopic10_4">Else в циклах: выполнение после нормального завершения цикла</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 4: Функции</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic11" class="topic-checkbox">
+                        <label for="topic11">Определение и вызов функций</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_1" class="subtopic-checkbox">
+                            <label for="subtopic11_1">Синтаксис определения функции: def</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_2" class="subtopic-checkbox">
+                            <label for="subtopic11_2">Вызов функции: передача аргументов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_3" class="subtopic-checkbox">
+                            <label for="subtopic11_3">Функции без параметров и возвращаемого значения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic11_4" class="subtopic-checkbox">
+                            <label for="subtopic11_4">Документирование функций: строки документации (docstring)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic12" class="topic-checkbox">
+                        <label for="topic12">Аргументы (позиционные, именованные)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_1" class="subtopic-checkbox">
+                            <label for="subtopic12_1">Позиционные аргументы</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_2" class="subtopic-checkbox">
+                            <label for="subtopic12_2">Именованные аргументы (keyword arguments)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_3" class="subtopic-checkbox">
+                            <label for="subtopic12_3">Аргументы по умолчанию</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic12_4" class="subtopic-checkbox">
+                            <label for="subtopic12_4">Произвольное количество аргументов: *args и **kwargs</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic13" class="topic-checkbox">
+                        <label for="topic13">Возврат значений (return)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_1" class="subtopic-checkbox">
+                            <label for="subtopic13_1">Оператор return: возврат одного значения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_2" class="subtopic-checkbox">
+                            <label for="subtopic13_2">Возврат нескольких значений (кортеж)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_3" class="subtopic-checkbox">
+                            <label for="subtopic13_3">Функции без return: возврат None</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic13_4" class="subtopic-checkbox">
+                            <label for="subtopic13_4">Ранний возврат из функции</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic14" class="topic-checkbox">
+                        <label for="topic14">Область видимости переменных</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_1" class="subtopic-checkbox">
+                            <label for="subtopic14_1">Локальная область видимости (внутри функции)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_2" class="subtopic-checkbox">
+                            <label for="subtopic14_2">Глобальная область видимости (вне функций)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_3" class="subtopic-checkbox">
+                            <label for="subtopic14_3">Ключевое слово global</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_4" class="subtopic-checkbox">
+                            <label for="subtopic14_4">Ключевое слово nonlocal (для вложенных функций)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic14_5" class="subtopic-checkbox">
+                            <label for="subtopic14_5">Пространства имен (namespaces) и правила поиска переменных (LEGB)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 5: Работа с файлами</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic15" class="topic-checkbox">
+                        <label for="topic15">Чтение и запись текстовых файлов</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_1" class="subtopic-checkbox">
+                            <label for="subtopic15_1">Функция open(): режимы открытия файлов (r, w, a, r+, etc.)</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_2" class="subtopic-checkbox">
+                            <label for="subtopic15_2">Чтение файла: read(), readline(), readlines()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_3" class="subtopic-checkbox">
+                            <label for="subtopic15_3">Запись в файл: write(), writelines()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic15_4" class="subtopic-checkbox">
+                            <label for="subtopic15_4">Закрытие файла: метод close()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic16" class="topic-checkbox">
+                        <label for="topic16">Контекстный менеджер with</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_1" class="subtopic-checkbox">
+                            <label for="subtopic16_1">Синтаксис with open() as file:</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_2" class="subtopic-checkbox">
+                            <label for="subtopic16_2">Автоматическое закрытие файла при выходе из блока</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic16_3" class="subtopic-checkbox">
+                            <label for="subtopic16_3">Обработка исключений при работе с файлами</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic17" class="topic-checkbox">
+                        <label for="topic17">Работа с CSV и JSON</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_1" class="subtopic-checkbox">
+                            <label for="subtopic17_1">Модуль csv: чтение и запись CSV-файлов</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_2" class="subtopic-checkbox">
+                            <label for="subtopic17_2">Модуль json: loads(), dumps(), load(), dump()</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_3" class="subtopic-checkbox">
+                            <label for="subtopic17_3">Сериализация и десериализация данных</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic17_4" class="subtopic-checkbox">
+                            <label for="subtopic17_4">Обработка ошибок формата при чтении JSON</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 6: Обработка ошибок</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic18" class="topic-checkbox">
+                        <label for="topic18">Конструкция try-except</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_1" class="subtopic-checkbox">
+                            <label for="subtopic18_1">Базовый синтаксис try-except</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_2" class="subtopic-checkbox">
+                            <label for="subtopic18_2">Обработка конкретных исключений</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_3" class="subtopic-checkbox">
+                            <label for="subtopic18_3">Обработка нескольких исключений в одном блоке except</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic18_4" class="subtopic-checkbox">
+                            <label for="subtopic18_4">Получение информации об исключении: as err</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic19" class="topic-checkbox">
+                        <label for="topic19">Типы исключений</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_1" class="subtopic-checkbox">
+                            <label for="subtopic19_1">Встроенные исключения: ValueError, TypeError, IndexError, etc.</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_2" class="subtopic-checkbox">
+                            <label for="subtopic19_2">Иерархия исключений: BaseException, Exception</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic19_3" class="subtopic-checkbox">
+                            <label for="subtopic19_3">Создание пользовательских исключений</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic20" class="topic-checkbox">
+                        <label for="topic20">Блоки finally и else</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_1" class="subtopic-checkbox">
+                            <label for="subtopic20_1">Блок finally: код, который выполняется всегда</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_2" class="subtopic-checkbox">
+                            <label for="subtopic20_2">Блок else: выполнение при отсутствии исключений</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic20_3" class="subtopic-checkbox">
+                            <label for="subtopic20_3">Порядок выполнения блоков: try-except-else-finally</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="module-title">Модуль 7: Базовые инструменты</div>
+            <div class="module-content">
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic21" class="topic-checkbox">
+                        <label for="topic21">Виртуальные окружения (venv)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_1" class="subtopic-checkbox">
+                            <label for="subtopic21_1">Создание виртуального окружения: python -m venv myenv</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_2" class="subtopic-checkbox">
+                            <label for="subtopic21_2">Активация и деактивация виртуального окружения</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic21_3" class="subtopic-checkbox">
+                            <label for="subtopic21_3">Назначение и преимущества виртуальных окружений</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic22" class="topic-checkbox">
+                        <label for="topic22">Менеджер пакетов pip</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_1" class="subtopic-checkbox">
+                            <label for="subtopic22_1">Установка пакетов: pip install package_name</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_2" class="subtopic-checkbox">
+                            <label for="subtopic22_2">Установка特定ной версии пакета</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_3" class="subtopic-checkbox">
+                            <label for="subtopic22_3">Просмотр установленных пакетов: pip list</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_4" class="subtopic-checkbox">
+                            <label for="subtopic22_4">Удаление пакетов: pip uninstall package_name</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic22_5" class="subtopic-checkbox">
+                            <label for="subtopic22_5">Создание requirements.txt: pip freeze > requirements.txt</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <div class="topic-title">
+                        <input type="checkbox" id="topic23" class="topic-checkbox">
+                        <label for="topic23">Основы Git (init, add, commit, push)</label>
+                    </div>
+                    <div class="subtopics">
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_1" class="subtopic-checkbox">
+                            <label for="subtopic23_1">Инициализация репозитория: git init</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_2" class="subtopic-checkbox">
+                            <label for="subtopic23_2">Добавление файлов в индекс: git add</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_3" class="subtopic-checkbox">
+                            <label for="subtopic23_3">Создание коммита: git commit -m "message"</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_4" class="subtopic-checkbox">
+                            <label for="subtopic23_4">Подключение удаленного репозитория: git remote add</label>
+                        </div>
+                        <div class="subtopic">
+                            <input type="checkbox" id="subtopic23_5" class="subtopic-checkbox">
+                            <label for="subtopic23_5">Отправка изменений: git push</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Отслеживайте свой прогресс в изучении Python</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.topic-checkbox, .subtopic-checkbox');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const totalTopics = checkboxes.length;
+
+            // Загрузка сохраненных состояний из localStorage
+            checkboxes.forEach(checkbox => {
+                const isChecked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.checked = isChecked;
+                if (isChecked) {
+                    checkbox.nextElementSibling.classList.add('completed');
+                }
+
+                checkbox.addEventListener('change', function() {
+                    // Сохранение состояния в localStorage
+                    localStorage.setItem(this.id, this.checked);
+
+                    if (this.checked) {
+                        this.nextElementSibling.classList.add('completed');
+                    } else {
+                        this.nextElementSibling.classList.remove('completed');
+                    }
+
+                    updateProgress();
+                });
+            });
+
+            function updateProgress() {
+                const completed = document.querySelectorAll('.topic-checkbox:checked, .subtopic-checkbox:checked').length;
+                const percentage = (completed / totalTopics) * 100;
+
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = Math.round(percentage) + '% завершено';
+            }
+
+            // Инициализация прогресса
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
