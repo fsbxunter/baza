@@ -1,3 +1,4 @@
+# чекаем этот говнокод
 def is_leap_year(year):
     """
     Определяет, является ли год високосным.
@@ -23,7 +24,11 @@ def is_leap_year(year):
     else:
         return False
 
-# чекаем этот говнокод
+# Кто бы сомневался, б**ть!
+def is_leap_year_short(year):
+    pass
+
+
 if __name__ == "__main__":
     # самые ненавистные годы
     test_years = [2000, 2004, 1900, 2020, 2021, 1600, 1700]
@@ -41,7 +46,7 @@ if __name__ == "__main__":
 
     for year in test_years:
         result1 = is_leap_year(year)
-        result2 = is_leap_year_short(year)
+        result2 = is_leap_year_short(year) # рил это какой-то дол*оебизм, я вахуи
         print(f"{year}: версия1={result1}, версия2={result2}, совпадают={result1 == result2}")
 
-# за*бался печатать
+# за*бался печатать, но меня бесит этот вайбхуйодинг
